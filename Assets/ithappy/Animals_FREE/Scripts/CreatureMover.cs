@@ -36,13 +36,13 @@ namespace Controller
         private MovementHandler m_Movement;
         private AnimationHandler m_Animation;
 
-        private Vector2 m_Axis;
+        private Vector2 m_axis;
         private Vector3 m_Target;
         private bool m_IsRun;
 
         private bool m_IsMoving;
 
-        public Vector2 Axis => m_Axis;
+        public Vector2 GetAxis() => m_axis;
         public Vector3 Target => m_Target;
         public bool IsRun => m_IsRun;
 
@@ -66,7 +66,7 @@ namespace Controller
 
         private void Update()
         {
-            m_Movement.Move(Time.deltaTime, in m_Axis, in m_Target, m_IsRun, m_IsMoving, out var animAxis, out var isAir);
+            m_Movement.Move(Time.deltaTime, in m_axis, in m_Target, m_IsRun, m_IsMoving, out var animAxis, out var isAir);
             m_Animation.Animate(in animAxis, m_IsRun ? 1f : 0f, Time.deltaTime);
         }
 
@@ -77,18 +77,18 @@ namespace Controller
 
         public void SetInput(in Vector2 axis, in Vector3 target, in bool isRun, in bool isJump)
         {
-            m_Axis = axis;
+            m_axis = axis;
             m_Target = target;
             m_IsRun = isRun;
 
-            if (m_Axis.sqrMagnitude < Mathf.Epsilon)
+            if (m_axis.sqrMagnitude < Mathf.Epsilon)
             {
-                m_Axis = Vector2.zero;
+                m_axis = Vector2.zero;
                 m_IsMoving = false;
             }
             else
             {
-                m_Axis = Vector3.ClampMagnitude(m_Axis, 1f);
+                m_axis = Vector3.ClampMagnitude(m_axis, 1f);
                 m_IsMoving = true;
             }
         }

@@ -48,7 +48,15 @@ namespace Controller
 
         public void GatherInput()
         {
-            m_Axis = new Vector2(Input.GetAxis(m_HorizontalAxis), Input.GetAxis(m_VerticalAxis));
+            float h = 0f;
+            float v = 0f;
+
+            if (Input.GetKey(KeyCode.A)) h = -1f;
+            if (Input.GetKey(KeyCode.D)) h = 1f;
+            if (Input.GetKey(KeyCode.W)) v = 1f;
+            if (Input.GetKey(KeyCode.S)) v = -1f;
+
+            m_Axis = new Vector2(h, v);
             m_IsRun = Input.GetKey(m_RunKey);
             m_IsJump = Input.GetButton(m_JumpButton);
 
